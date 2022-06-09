@@ -1,5 +1,1 @@
-ID: 22160112
-Name: Mohammed Saeed
-Age: 19
-University: SU
-Level: 1
+22160112 Mohammed Saeed 20 SU 1

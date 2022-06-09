@@ -1,5 +1,1 @@
-ID: 22160015
-Name: Ahmed Alkhateeb
-Age: 20
-University: SU
-Level: 1
+22160015 Ahmed Alkhateeb 20 SU 1

@@ -12,6 +12,8 @@ using namespace std;
 
 void Add_ID_To_Database(string ID);
 bool Check_If_Present(string ID);
+void Edit_Student_Data(string ID, int i);
+void Delete_Student_Record(string ID);
 void AddStudentData();
 int StudentCounter();
 
@@ -19,6 +21,15 @@ int StudentCounter();
 
 struct Student
 {
+	enum class StudentInputs
+	{
+		//ID,
+		FName,
+		LName,
+		Age,
+		University,
+		Level
+	};
 	string ID;
 	string First_Name;
 	string Last_Name;
@@ -63,6 +74,92 @@ bool Check_If_Present(string ID)
 	return false;
 }
 
+void Edit_Student_Data(string ID, int i)
+{
+	string filename = "Database/" + ID + ".txt";
+	ifstream GetDude(filename);
+	Student s; //Takes all of our previous data for the student (RAM)
+
+	GetDude >> s.ID >> s.First_Name >> s.Last_Name >> s.age >> s.University >> s.Level;
+	//Loads all of the data to the RAM
+
+	switch (Student::StudentInputs(i)) //jumps to the wanted data to change
+	{/*
+	case Student::StudentInputs::ID:
+	{
+		cout << "WARNING!!! changing the ID will change the name of the file\n";
+		char check;
+		cout << "Do you still want to continue and change the ID? press y, otherwise press anything else\n";
+		cin >> check;
+		if (check != 'y')
+		{
+			break;
+		}
+		string ID;
+		cout << "Enter the new ID\n";
+		cin >> ID;
+		s.ID = ID;
+	}*/
+	break;
+	case Student::StudentInputs::FName:
+	{
+		string FName;
+		cin >> FName;
+		s.First_Name = FName;
+	}
+	break;
+	case Student::StudentInputs::LName:
+	{
+		string LName;
+		cin >> LName;
+		s.Last_Name = LName;
+	}
+	break;
+	case Student::StudentInputs::Age:
+	{
+		int age;
+		cin >> age;
+		s.age = age;
+	}
+	break;
+	case Student::StudentInputs::University:
+	{
+		string University;
+		cin >> University;
+		s.University = University;
+	}
+	break;
+	case Student::StudentInputs::Level:
+	{
+		int Level;
+		cin >> Level;
+		s.Level = Level;
+	}
+	break;
+	default:
+		break;
+	}
+	ofstream SetDude(filename);
+	SetDude << s.ID << " "
+			<< s.First_Name << " " << s.Last_Name << " "
+			<< s.age << " "
+			<< s.University << " "
+			<< s.Level;
+	//Takes all the data from the RAM and stores in into the text file with the edited data
+
+	//string oldname = "C:/Users/Ashfo/OneDrive/Desktop/Big project/Test/Test/Database/" + ID + ".txt";
+	//string newname = "C:/Users/Ashfo/OneDrive/Desktop/Big project/Test/Test/Database/" + s.ID + ".txt";
+	////Stores the names to be renamed
+	//rename(oldname.c_str(), newname.c_str());
+	////Renames the text file to fit the ID of the student if changed otherwise it will rename to the same name
+}
+
+void Delete_Student_Record(string ID)
+{
+	string filename = "Database/" + ID + ".txt";
+	remove(filename.c_str());
+}
+
 void AddStudentData()
 {
 	Student s;
@@ -89,11 +186,11 @@ void AddStudentData()
 		ofstream ThisDude;
 		ThisDude.open("Database/" + s.ID + ".txt");
 
-		ThisDude << "ID: " << s.ID << endl
-				 << "Name: " << s.First_Name << " " << s.Last_Name << endl
-				 << "Age: " << s.age << endl
-				 << "University: " << s.University << endl
-				 << "Level: " << s.Level;
+		ThisDude << s.ID << " "
+				 << s.First_Name << " " << s.Last_Name << " "
+				 << s.age << " "
+				 << s.University << " "
+				 << s.Level;
 
 		Add_ID_To_Database(s.ID);
 	}
